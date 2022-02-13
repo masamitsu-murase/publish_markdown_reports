@@ -1,9 +1,10 @@
 {
   "name": "publish_markdown_reports",
   "version": "1.0.0",
-  "description": "",
+  "description": "An extension to publish Markdown reports in build result tab of Azure DevOps.",
   "main": "index.js",
   "scripts": {
+    "build": "tfx extension create --manifest-globs vss-extension.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
