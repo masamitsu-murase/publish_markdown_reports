@@ -14,7 +14,7 @@ This extension adds a "Markdown reports" tab to a build result page as follows:
 
 ### Project setting
 
-Add this extension to your project in Marketplace page.
+Add this extension to your project in [Marketplace page](https://marketplace.visualstudio.com/items?itemName=MasamitsuMurase.publish-markdown-reports).
 
 ### Pipeline setting
 
