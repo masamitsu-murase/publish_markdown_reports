@@ -2,10 +2,10 @@
     "manifestVersion": 1,
     "id": "publish-markdown-reports",
     "publisher": "MasamitsuMurase",
-    "version": "1.0.80",
+    "version": "1.1.0",
     "name": "Publish Markdown Reports",
     "description": "An extension to publish markdown reports in build result tab.",
-    "public": false,
+    "public": true,
     "categories": [
         "Azure Pipelines"
     ],
