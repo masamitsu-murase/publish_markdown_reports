@@ -144,44 +144,12 @@ var DevOpsMarked = (function () {
     };
     marked.Slugger.prototype.slug = mySlug;
 
-    const rendererNone = {
-        heading: function (text, level, raw, slugger) {
-            return `<h${level}>${text}</h${level}>\n`;
-        }
-    };
-
-    const rendererDoxybook2 = {
-        heading: function (text, level, raw, slugger) {
-            const id = raw.toLowerCase()
-                .trim()
-                .replaceAll("::", "")
-                .replaceAll(" ", "-")
-                .replaceAll("_", "-")
-                // remove unwanted chars
-                .replaceAll(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '');
-            return '<h' + level + ' id="' + slugger.slug(id) + '">' + text + '</h' + level + '>\n';
-        }
-    };
-
-    const rendererPythonMarkdown = {
-        heading: function (text, level, raw, slugger) {
-            const separator = "-";
-            const escaped = raw.normalize("NFKD")
-                .replaceAll(/[^\x00-\x7F]/g, "")
-                .replaceAll(/[^\w\s-]/g, "")
-                .trim()
-                .toLowerCase()
-                .replaceAll(new RegExp(`[${separator}\\s]+`, "g"), separator);
-            const id = slugger.slug(escaped);
-            return '<h' + level + ' id="' + id + '">' + text + '</h' + level + '>\n';
-        }
-    };
-
     var InternalLinkRenderer = class extends marked.Renderer {
-        constructor(currentFilePath) {
+        constructor(currentFilePath, headerId) {
             super();
             this.currentFilePath = currentFilePath;
             this.imageIds = [];
+            this.headerId = (headerId || "").toLowerCase();
         }
 
         isExternalLink(url) {
@@ -215,6 +183,45 @@ var DevOpsMarked = (function () {
             return href;
         }
 
+        headingPythonMarkdown(text, level, raw, slugger) {
+            const separator = "-";
+            const escaped = raw.normalize("NFKD")
+                .replaceAll(/[^\x00-\x7F]/g, "")
+                .replaceAll(/[^\w\s-]/g, "")
+                .trim()
+                .toLowerCase()
+                .replaceAll(new RegExp(`[${separator}\\s]+`, "g"), separator);
+            const id = slugger.slug(escaped);
+            return '<h' + level + ' id="' + id + '">' + text + '</h' + level + '>\n';
+        }
+
+        headingDoxybook2(text, level, raw, slugger) {
+            const id = raw.toLowerCase()
+                .trim()
+                .replaceAll("::", "")
+                .replaceAll(" ", "-")
+                .replaceAll("_", "-")
+                // remove unwanted chars
+                .replaceAll(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '');
+            return '<h' + level + ' id="' + slugger.slug(id) + '">' + text + '</h' + level + '>\n';
+        }
+
+        headingNone(text, level, raw, slugger) {
+            return `<h${level}>${text}</h${level}>\n`;
+        }
+
+        heading(text, level, raw, slugger) {
+            switch(this.headerId) {
+                case "pythonmarkdown":
+                    return this.headingPythonMarkdown(text, level, raw, slugger);
+                case "doxybook2":
+                    return this.headingDoxybook2(text, level, raw, slugger);
+                case "none":
+                default:
+                    return this.headingNone(text, level, raw, slugger);
+            }
+        }
+
         link(href, title, text) {
             href = this.convertInternalLink(href);
             return super.link(href, title, text);
@@ -235,8 +242,8 @@ var DevOpsMarked = (function () {
         }
     };
 
-    var createMarkdownReport = function (text, currentFilePath, headerIdType) {
-        const renderer = new InternalLinkRenderer(currentFilePath);
+    var createMarkdownReport = function (text, currentFilePath, headerId) {
+        const renderer = new InternalLinkRenderer(currentFilePath, headerId);
         const options = {
             baseUrl: `?${PATH_PARAM_NAME}=/`,
             breaks: true,
@@ -248,21 +255,6 @@ var DevOpsMarked = (function () {
             langPrefix: "hljs language-",
             renderer: renderer
         };
-
-        switch ((headerIdType || "").toLowerCase()) {
-            case "doxybook2":
-                marked.use({ renderer: rendererDoxybook2 });
-                break;
-            case "pythonmarkdown":
-                marked.use({ renderer: rendererPythonMarkdown });
-                break;
-            case "marked":
-                break;
-            case "none":
-            default:
-                marked.use({ renderer: rendererNone });
-                break;
-        }
 
         const md = marked.parse(text, options);
         const html = DOMPurify.sanitize(md, { USE_PROFILES: { html: true } });
