@@ -29,6 +29,14 @@
             "defaultValue": "index.md",
             "required": false,
             "helpMarkDown": "Path to the index file."
+        },
+        {
+            "name": "headerId",
+            "type": "string",
+            "label": "headerId",
+            "defaultValue": "none",
+            "required": false,
+            "helpMarkDown": "Header ID style. 'none', 'marked', 'pythonmarkdown', or 'doxybook2'."
         }
     ],
     "execution": {
