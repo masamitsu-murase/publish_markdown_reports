@@ -36,7 +36,7 @@
             "label": "headerId",
             "defaultValue": "none",
             "required": false,
-            "helpMarkDown": "Header ID style. 'none', 'marked', 'pythonmarkdown', or 'doxybook2'."
+            "helpMarkDown": "Header ID style. 'none', 'pythonmarkdown', or 'doxybook2'."
         }
     ],
     "execution": {
