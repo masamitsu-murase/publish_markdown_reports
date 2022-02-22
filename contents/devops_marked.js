@@ -144,6 +144,12 @@ var DevOpsMarked = (function () {
     };
     marked.Slugger.prototype.slug = mySlug;
 
+    const rendererNone = {
+        heading: function (text, level, raw, slugger) {
+            return `<h${level}>${text}</h${level}>\n`;
+        }
+    };
+
     const rendererDoxybook2 = {
         heading: function (text, level, raw, slugger) {
             const id = raw.toLowerCase()
@@ -250,7 +256,11 @@ var DevOpsMarked = (function () {
             case "pythonmarkdown":
                 marked.use({ renderer: rendererPythonMarkdown });
                 break;
+            case "marked":
+                break;
+            case "none":
             default:
+                marked.use({ renderer: rendererNone });
                 break;
         }
 

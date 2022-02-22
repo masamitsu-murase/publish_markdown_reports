@@ -91,12 +91,14 @@ async function run() {
             tl.setResult(tl.TaskResult.Failed, 'indexFile is not included in contentPath.');
             return;
         }
-
         if (path.sep != "/") {
             indexFilePath = replaceAll(indexFilePath, path.sep, "/");
         }
+
+        const headerId = tl.getInput("headerId", false) || "none";
         const configData = {
-            "index": indexFilePath
+            "index": indexFilePath,
+            "headerId": headerId
         };
         saveConfigData(configData);
 

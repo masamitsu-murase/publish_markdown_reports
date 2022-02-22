@@ -118,7 +118,7 @@
             }
 
             const text = await attachmentBlob.text();
-            const [html, imageIds] = DevOpsMarked.createMarkdownReport(text, path, "pythonmarkdown");
+            const [html, imageIds] = DevOpsMarked.createMarkdownReport(text, path, configData.headerId);
             outputElement.innerHTML = html;
 
             const promises = imageIds.map(imageId => loadImageAsync(imageId, loader));

@@ -25,10 +25,12 @@ Add the following YAML definition in your pipeline.
   inputs:
     contentPath: $(Build.SourcesDirectory)/markdown
     indexFile: main_page.md
+    headerId: doxybook2
 ```
 
-`contentPath` specifies a root directory of your Markdown files.  
-`indexFile` is optional. `index.md` is used as default.
+* `contentPath` specifies a root directory of your Markdown files.  
+* `indexFile` is optional. `index.md` is used as default.
+* `headerId` is optional. 'none', 'marked', 'pythonmarkdown', or 'doxybook2'.
 
 ## 3rd party libraries
 
