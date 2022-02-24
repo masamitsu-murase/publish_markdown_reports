@@ -2,10 +2,10 @@ name: build
 
 on:
   push:
-    branches: [ main, support_github_actions ]
+    branches: [ main, develop, support_github_actions ]
     tags: ['v*']
   pull_request:
-    branches: [ master ]
+    branches: [ main, develop ]
 
 jobs:
   build_vsix:
