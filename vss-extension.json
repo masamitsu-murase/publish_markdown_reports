@@ -1,11 +1,11 @@
 {
     "manifestVersion": 1,
-    "id": "publish-markdown-reports-test",
+    "id": "publish-markdown-reports",
     "publisher": "MasamitsuMurase",
     "version": "1.2.1",
-    "name": "Publish Markdown Reports Test",
+    "name": "Publish Markdown Reports",
     "description": "An extension to publish markdown reports in build result tab.",
-    "public": false,
+    "public": true,
     "categories": [
         "Azure Pipelines"
     ],
@@ -50,7 +50,7 @@
                 "name": "Markdown reports",
                 "uri": "contents/markdown_tab.html",
                 "supportsTasks": [
-                    "d7644b30-c241-4359-a984-c1a113cdae39"
+                    "74f0435e-49d1-4346-834f-94e061a80c78"
                 ]
             }
         },

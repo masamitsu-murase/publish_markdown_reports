@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-    "id": "d7644b30-c241-4359-a984-c1a113cdae39",
+    "id": "74f0435e-49d1-4346-834f-94e061a80c78",
     "name": "PublishMarkdownReports",
     "friendlyName": "Publish Markdown reports",
     "description": "A task to publish Markdown reports in a tab in your build result.",
