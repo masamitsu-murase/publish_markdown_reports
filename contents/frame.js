@@ -1,9 +1,7 @@
 (function () {
     const ROOT_PATH_PREFIX = "md";
     const DEFAULT_PATH_VALUE = "/" + ROOT_PATH_PREFIX + "/" + "index.md";
-    const CONFIG_FILE_NAME = "config.json";
     const PATH_PARAM_NAME = "path";
-    const ATTACHMENT_TYPE = "publishmarkdownreports";
     const IMAGE_TYPES = {
         "apng": "image/apng",
         "gif": "image/gif",
