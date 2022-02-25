@@ -158,14 +158,6 @@ var DevOpsMarked = (function () {
         }
 
         convertInternalLink(href) {
-            if (href == null) {
-                return href;
-            }
-
-            if (this.isExternalLink(href)) {
-                return href;
-            }
-
             const currentDirPath = this.currentFilePath.parent();
             switch (href.charAt(0)) {
                 case "/":
@@ -223,6 +215,15 @@ var DevOpsMarked = (function () {
         }
 
         link(href, title, text) {
+            if (!href || this.isExternalLink(href)) {
+                let tag = super.link(href, title, text);
+                // tag is '<a href=...>text</a>' or text itself.
+                if (tag !== text) {
+                    tag = '<a target="_top" rel="noreferrer"' + tag.slice(2);
+                }
+                return tag;
+            }
+
             href = this.convertInternalLink(href);
             return super.link(href, title, text);
         }
