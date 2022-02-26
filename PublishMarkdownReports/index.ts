@@ -4,6 +4,9 @@ import process = require('process');
 import tl = require('azure-pipelines-task-lib/task');
 
 
+const ATTACHMENT_TYPE = 'publishmarkdownreports';
+const CONFIG_FILENAME = 'config.json';
+
 async function getFiles(dir: string): Promise<string[]> {
     const dirents = await fs.promises.readdir(dir, { withFileTypes: true });
     const files = await Promise.all(dirents.map((dirent) => {
@@ -43,7 +46,7 @@ async function saveConfigData(configData: object) {
     const tempDir = await fs.promises.mkdtemp(path.join(tempBaseDir, "publishmarkdownreports-"));
     const configFilePath = path.join(tempDir, "config.json");
     await fs.promises.writeFile(configFilePath, jsonData);
-    console.log(`##vso[task.addattachment type=publishmarkdownreports;name=config.json;]${configFilePath}`);
+    tl.addAttachment(ATTACHMENT_TYPE, CONFIG_FILENAME, configFilePath);
 }
 
 function addAttachments(files: string[], baseDir: string) {
@@ -52,8 +55,7 @@ function addAttachments(files: string[], baseDir: string) {
     absoluteFiles.forEach((absoluteFile, index) => {
         const relativeFile = relativeFiles[index];
         const name = escapeFilename(relativeFile);
-        // echo ##vso[task.addattachment type=publishmarkdownreports;name=md^^08index.md;]$(Build.SourcesDirectory)\markdown\index.md
-        console.log(`##vso[task.addattachment type=publishmarkdownreports;name=${name};]${absoluteFile}`);
+        tl.addAttachment(ATTACHMENT_TYPE, name, absoluteFile);
     });
 }
 

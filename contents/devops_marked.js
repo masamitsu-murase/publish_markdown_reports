@@ -4,6 +4,7 @@ var DevOpsMarked = (function () {
     const LOG_ESCAPE_CHARACTER = "^";
 
     class Path {
+        //                           123456 789
         static ESCAPED_CHARACTERS = '<>|:*?\\/ ';
 
         static escapeLog(path) {
