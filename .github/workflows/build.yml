@@ -36,11 +36,6 @@ jobs:
 
     - run: npm run test
 
-    - uses: actions/upload-artifact@v2
-      with:
-        name: vsix
-        path: ./*.vsix
-
   build:
     needs: test
 
