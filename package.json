@@ -5,15 +5,28 @@
   "main": "index.js",
   "scripts": {
     "build": "tfx extension create --manifest-globs vss-extension.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "node tests/prepare.js",
+    "test": "jest"
+  },
+  "jest": {
+    "testRegex": [
+      "/tests/.*test\\.js$"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/PublishMarkdownReports/"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dompurify": "^2.3.6",
+    "marked": "^4.0.12",
     "vss-web-extension-sdk": "^5.141.0"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "tfx-cli": "^0.11.0"
   }
 }
