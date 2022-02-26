@@ -153,6 +153,22 @@
         }
     };
 
+    const TEMPORARY_ATTRIBUTE = 'data-publishmarkdownreports-href-target';
+
+    DOMPurify.addHook('beforeSanitizeAttributes', function (node) {
+        if (node.tagName === 'A') {
+            if (node.hasAttribute('target') && node.hasAttribute('rel') && node.getAttribute('rel') == 'noreferrer') {
+                node.setAttribute(TEMPORARY_ATTRIBUTE, node.getAttribute('target'));
+            }
+        }
+    });
+    DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+        if (node.tagName === 'A' && node.hasAttribute(TEMPORARY_ATTRIBUTE)) {
+            node.setAttribute('target', node.getAttribute(TEMPORARY_ATTRIBUTE))
+            node.removeAttribute(TEMPORARY_ATTRIBUTE)
+        }
+    });
+
     window.addEventListener("message", function (event) {
         try {
             const expectedOrigin = THIS_URL.origin;
