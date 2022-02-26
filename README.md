@@ -1,4 +1,4 @@
-[![build](https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml)
+[![build](https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml)
 
 # Publish Markdown reports
 

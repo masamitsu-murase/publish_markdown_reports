@@ -16,7 +16,7 @@
     "badges": [
         {
             "href": "https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml",
-            "uri": "https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml/badge.svg?branch=develop",
+            "uri": "https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml/badge.svg?branch=main",
             "description": "GitHub Actions build for this project."
         }
     ],
