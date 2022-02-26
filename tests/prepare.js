@@ -9,11 +9,11 @@ async function readFile(filename) {
 
 async function main() {
     const files = [
-        ["highlight.min.js", "hljs"],
-        ["marked.min.js", "marked"],
-        ["purify.min.js", "DOMPurify"],
+        ["contents/highlight.min.js", "hljs"],
+        ["node_modules/marked/marked.min.js", "marked"],
+        ["node_modules/dompurify/dist/purify.min.js", "DOMPurify"],
     ];
-    const absolutePaths = files.map(item => path.resolve(__dirname, "..", "contents", item[0]));
+    const absolutePaths = files.map(item => path.resolve(__dirname, "..", item[0]));
     const relativePaths = absolutePaths.map(filepath => path.relative(__dirname, filepath));
     const requirePaths = relativePaths.map(filepath => filepath.replace(/\\/g, "/").slice(0, -3));
     const requires = requirePaths.map((item, index) => {
