@@ -78,6 +78,16 @@
             "addressable": true
         },
         {
+            "path": "node_modules/marked/marked.min.js",
+            "addressable": true,
+            "packagePath": "contents/marked.min.js"
+        },
+        {
+            "path": "node_modules/dompurify/dist/purify.min.js",
+            "addressable": true,
+            "packagePath": "contents/purify.min.js"
+        },
+        {
             "path": "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
             "addressable": true,
             "packagePath": "contents/lib/VSS.SDK.min.js"
