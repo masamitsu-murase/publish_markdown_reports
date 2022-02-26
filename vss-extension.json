@@ -13,6 +13,13 @@
         "type": "git",
         "uri": "https://github.com/masamitsu-murase/publish_markdown_reports"
     },
+    "badges": [
+        {
+            "href": "https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml",
+            "uri": "https://github.com/masamitsu-murase/publish_markdown_reports/actions/workflows/build.yml/badge.svg?branch=develop",
+            "description": "GitHub Actions build for this project."
+        }
+    ],
     "screenshots": [
         {
             "path": "images/screenshot.png"
@@ -21,6 +28,9 @@
     "content": {
         "details": {
             "path": "README.md"
+        },
+        "license": {
+            "path": "LICENSE.txt"
         }
     },
     "icons": {
