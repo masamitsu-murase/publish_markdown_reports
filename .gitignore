@@ -1,3 +1,4 @@
 node_modules/
+/tests/devops_marked.js
 *~
 *.vsix

@@ -4,6 +4,7 @@ var DevOpsMarked = (function () {
     const LOG_ESCAPE_CHARACTER = "^";
 
     class Path {
+        //                           123456 789
         static ESCAPED_CHARACTERS = '<>|:*?\\/ ';
 
         static escapeLog(path) {
@@ -95,7 +96,11 @@ var DevOpsMarked = (function () {
         }
 
         extension() {
-            return this.path[this.path.length - 1].split(".").pop();
+            const splitted = this.path[this.path.length - 1].split(".");
+            if (splitted.length <= 1) {
+                return null;
+            }
+            return splitted[splitted.length - 1];
         }
 
         isRoot() {
@@ -257,8 +262,7 @@ var DevOpsMarked = (function () {
             renderer: renderer
         };
 
-        const md = marked.parse(text, options);
-        const html = DOMPurify.sanitize(md, { USE_PROFILES: { html: true } });
+        const html = marked.parse(text, options);
 
         return [html, renderer.imageIds];
     };
