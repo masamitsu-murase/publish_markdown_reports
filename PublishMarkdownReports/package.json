@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "tsc",
+    "test": "cross-env INPUT_INDEXFILE=index.md INPUT_HEADERID=none jest"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^17.0.18",
     "@types/q": "^1.5.5",
+    "cross-env": "^7.0.3",
     "jest": "^27.5.1"
   }
 }
