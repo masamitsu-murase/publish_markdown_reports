@@ -125,7 +125,16 @@
         VSS.ready(function () {
             const vsoContext = VSS.getWebContext();
             const config = VSS.getConfiguration();
-            if (!vsoContext || !config) {
+            if (!vsoContext) {
+                const message = "vsoContext is not valid.";
+                console.error(message);
+                reject(new Error(message));
+                return;
+            }
+            if (!config) {
+                const message = "config is not valid.";
+                console.error(message);
+                reject(new Error(message));
                 return;
             }
 
