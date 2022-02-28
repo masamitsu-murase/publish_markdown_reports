@@ -74,17 +74,21 @@
     }
 
     var scrollToElement = function (elementSelector) {
-        const elem = document.querySelector(elementSelector);
+        const id = elementSelector.slice(1);  // Remove '#'.
+
+        const elem = document.getElementById(id);
         if (elem) {
             elem.scrollIntoView(true);
             return;
         }
 
-        const id = elementSelector.slice(1);  // Remove '#'.
-        const aTag = document.querySelector(`a[name="${id}"]`);
-        if (aTag) {
-            aTag.scrollIntoView(true);
-            return;
+        const aTags = document.getElementsByName(id);
+        for (let i=0; i<aTags.length; i++) {
+            const aTag = aTags[i];
+            if (aTag.tagName.toLowerCase() == "a") {
+                aTag.scrollIntoView(true);
+                return;
+            }
         }
     };
 
