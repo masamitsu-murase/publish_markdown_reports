@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="highlight.min.css" />
     <script src="highlight.min.js"></script>
     <script src="marked.min.js"></script>
     <script src="purify.min.js"></script>
-    <link rel="stylesheet" href="highlight.min.css" />
     <script src="devops_marked.js"></script>
     <script src="frame.js"></script>
     <style>
@@ -20,9 +20,16 @@
         #publish-markdown-reports-header {
             margin: 0.1em 0em;
         }
-        #publish-markdown-reports-header > h1 {
+        #publish-markdown-reports-header h1 {
             display: inline;
             padding-right: 0.5em;
+        }
+        #publish-markdown-reports-header h1 a{
+            color: black;
+            text-decoration: none;
+        }
+        #publish-markdown-reports-header h1 a:hover{
+            text-decoration: underline;
         }
 
         #publish-markdown-reports-footer {
@@ -33,7 +40,7 @@
 </head>
 
 <body>
-    <div id="publish-markdown-reports-header"><h1>Markdown reports</h1> <a href="markdown_frame.html">Home</a></div>
+    <div id="publish-markdown-reports-header"><h1><a href="markdown_frame.html">Markdown reports</a></h1> <span id="publish-markdown-reports-filename"></span></div>
     <hr />
     <div id="publish-markdown-reports-output">Loading...</div>
     <hr />
