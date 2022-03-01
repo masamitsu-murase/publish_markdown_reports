@@ -32,7 +32,7 @@ Add the following YAML definition in your pipeline.
 
 * `contentPath` specifies a root directory of your Markdown files.  
 * `indexFile` is optional. `index.md` is used as default.
-* `headerId` is optional. 'none', 'pythonmarkdown', or 'doxybook2'.
+* `headerId` is optional. `none`, `pythonmarkdown`, or `doxybook2`.
 
 ## 3rd party libraries
 
@@ -44,6 +44,8 @@ This extension uses the following 3rd party libraries.
   Ivan Sagalaev. (BSD 3-Clause License)
 * [DOMPurify](https://github.com/cure53/DOMPurify)  
   Mario Heiderich. (Apache License)
+* [new.css](https://newcss.net/)  
+  Example. (MIT License)
 
 ## License
 

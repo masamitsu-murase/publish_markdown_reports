@@ -133,6 +133,8 @@
 
             const currentUrl = THIS_URL;
             const path = extractPath(currentUrl, configData);
+            document.querySelector("#publish-markdown-reports-filename").textContent = path.markdownPath();
+
             const attachmentBlob = await loader.loadContentBlob(path.logPath(), "text/plain");
             if (!attachmentBlob) {
                 console.warn(`Invalid path: ${path.logPath()}`);
