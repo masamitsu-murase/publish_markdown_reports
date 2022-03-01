@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "publish-markdown-reports",
     "publisher": "MasamitsuMurase",
-    "version": "1.3.2",
+    "version": "1.4.0",
     "name": "Publish Markdown Reports",
     "description": "An extension to publish markdown reports in build result tab.",
     "public": true,

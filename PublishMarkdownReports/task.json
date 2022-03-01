@@ -9,8 +9,8 @@
     "author": "Masamitsu MURASE",
     "version": {
         "Major": 1,
-        "Minor": 3,
-        "Patch": 2
+        "Minor": 4,
+        "Patch": 0
     },
     "instanceNameFormat": "Publish Markdown reports",
     "inputs": [
