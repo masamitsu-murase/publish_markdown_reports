@@ -1,0 +1,50 @@
+
+pre {
+	padding: 0.5rem;
+}
+
+table {
+	width: auto;
+}
+
+td, th {
+	text-align: revert;
+	text-align: revert-layer;
+}
+td[align=left], th[aligh=left] {
+	text-align: left;
+}
+td[align=center], th[aligh=center] {
+	text-align: center;
+}
+td[align=right], th[aligh=right] {
+	text-align: right;
+}
+
+.hljs {
+	background-color: var(--nc-bg-2);
+	color: var(--nc-tx-2);
+}
+
+#publish-markdown-reports-header {
+    margin: 0.1em 0em;
+}
+
+#publish-markdown-reports-header h1 {
+    display: inline;
+    padding-right: 0.5em;
+}
+
+#publish-markdown-reports-header h1 a{
+    color: black;
+    text-decoration: none;
+}
+
+#publish-markdown-reports-header h1 a:hover{
+    text-decoration: underline;
+}
+
+#publish-markdown-reports-footer {
+    text-align: right;
+    padding-right: 2em;
+}
