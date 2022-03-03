@@ -4,6 +4,7 @@
   "description": "An extension to publish Markdown reports in build result tab of Azure DevOps.",
   "main": "index.js",
   "scripts": {
+    "prebuild": "node make/prepare.js",
     "build": "tfx extension create --manifest-globs vss-extension.json",
     "pretest": "node tests/prepare.js",
     "test": "jest"
