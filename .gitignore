@@ -1,4 +1,5 @@
 node_modules/
+/contents/frame_all.*
 /tests/devops_marked.js
 *~
 *.vsix

@@ -84,23 +84,24 @@
             "path": "PublishMarkdownReports"
         },
         {
-            "path": "contents",
+            "path": "contents/markdown_frame.html",
             "addressable": true
         },
         {
-            "path": "node_modules/@exampledev/new.css/new.css",
-            "addressable": true,
-            "packagePath": "contents/new.css"
+            "path": "contents/frame_all.js",
+            "addressable": true
         },
         {
-            "path": "node_modules/marked/marked.min.js",
-            "addressable": true,
-            "packagePath": "contents/marked.min.js"
+            "path": "contents/frame_all.css",
+            "addressable": true
         },
         {
-            "path": "node_modules/dompurify/dist/purify.min.js",
-            "addressable": true,
-            "packagePath": "contents/purify.min.js"
+            "path": "contents/markdown_tab.html",
+            "addressable": true
+        },
+        {
+            "path": "contents/main.js",
+            "addressable": true
         },
         {
             "path": "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
