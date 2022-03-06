@@ -10,10 +10,6 @@ I developed this extension to show **Markdown files**, which are automatically g
 
 This extension adds a "Markdown reports" tab to a build result page as follows:
 
-![Screenshot](images/screenshot.png)
-
-You can show any Markdown files in the tab as follows:
-
 ![Movie](images/screenshot_movie.gif)
 
 ## Usage
