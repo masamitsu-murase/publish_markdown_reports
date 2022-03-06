@@ -10,10 +10,6 @@ I developed this extension to show **Markdown files**, which are automatically g
 
 This extension adds a "Markdown reports" tab to a build result page as follows:
 
-![Screenshot](images/screenshot.png)
-
-You can show any Markdown files in the tab as follows:
-
 ![Movie](images/screenshot_movie.gif)
 
 ## Usage
@@ -31,12 +27,12 @@ Add the following YAML definition in your pipeline.
   inputs:
     contentPath: $(Build.SourcesDirectory)/markdown
     indexFile: main_page.md
-    headerId: doxybook2
+    headingId: doxybook2
 ```
 
 * `contentPath` specifies a root directory of your Markdown files.  
 * `indexFile` is optional. `index.md` is used as default.
-* `headerId` is optional. `none`, `pythonmarkdown`, or `doxybook2`.
+* `headingId` is optional. `none`, `pythonmarkdown`, or `doxybook2`.
 
 ## 3rd party libraries
 

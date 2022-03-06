@@ -59,6 +59,20 @@ function addAttachments(files: string[], baseDir: string) {
     });
 }
 
+function getHeadingIdInput(): string
+{
+    const headerId = tl.getInput("headerId");
+    if (headerId) {
+        tl.warning("'headerId' is deprecated. Use 'headingId' instead.");
+    }
+
+    const headingId = headerId || tl.getInput("headingId");
+    if (headingId) {
+        return headingId;
+    }
+    return "none";
+}
+
 async function run() {
     try {
         const contentPath = tl.getInput('contentPath', true);
@@ -97,10 +111,10 @@ async function run() {
             indexFilePath = replaceAll(indexFilePath, path.sep, "/");
         }
 
-        const headerId = tl.getInput("headerId", false) || "none";
+        const headingId = getHeadingIdInput();
         const configData = {
             "index": indexFilePath,
-            "headerId": headerId
+            "headingId": headingId
         };
         saveConfigData(configData);
 

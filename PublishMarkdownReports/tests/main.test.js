@@ -13,10 +13,10 @@ function loadConfigJsonData(logOutput) {
     return JSON.parse(fs.readFileSync(configFilepath));
 }
 
-function checkContentFiles(tr) {
+function checkContentFiles(tr, warningCount=0, errorCount=0) {
     assert.equal(tr.succeeded, true, 'should have succeeded');
-    assert.equal(tr.warningIssues.length, 0, "should have no warnings");
-    assert.equal(tr.errorIssues.length, 0, "should have no errors");
+    assert.equal(tr.warningIssues.length, warningCount, "should have no warnings");
+    assert.equal(tr.errorIssues.length, errorCount, "should have no errors");
 
     utils.CONTENT_FILES.forEach(item => {
         const [file, name] = item;
@@ -33,7 +33,6 @@ test('with contentPath', () => {
     let tr = new ttm.MockTestRunner(tp);
     tr.run();
 
-    // console.log(tr.stdout);
     checkContentFiles(tr);
     const configJsonData = loadConfigJsonData(tr.stdout);
     assert.deepStrictEqual(configJsonData, utils.DEFAULT_CONFIG_DATA);
@@ -44,13 +43,27 @@ test('with full params', () => {
     let tr = new ttm.MockTestRunner(tp);
     tr.run();
 
-    // console.log(tr.stdout);
     checkContentFiles(tr);
 
     const configJsonData = loadConfigJsonData(tr.stdout);
     const expectedJsonData = Object.assign({}, utils.DEFAULT_CONFIG_DATA, {
         index: "Dir1/main.md",
-        headerId: "pythonmarkdown",
+        headingId: "pythonmarkdown",
+    });
+    assert.deepStrictEqual(configJsonData, expectedJsonData);
+});
+
+test('with warned params', () => {
+    let tp = path.join(__dirname, 'warning_with_full_params.js');
+    let tr = new ttm.MockTestRunner(tp);
+    tr.run();
+
+    checkContentFiles(tr, 1);
+
+    const configJsonData = loadConfigJsonData(tr.stdout);
+    const expectedJsonData = Object.assign({}, utils.DEFAULT_CONFIG_DATA, {
+        index: "Dir1/main.md",
+        headingId: "doxybook2",
     });
     assert.deepStrictEqual(configJsonData, expectedJsonData);
 });

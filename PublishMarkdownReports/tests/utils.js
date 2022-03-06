@@ -2,7 +2,7 @@ const ATTACHMENT_TYPE = 'publishmarkdownreports';
 const CONFIG_FILENAME = 'config.json';
 const DEFAULT_CONFIG_DATA = {
     index: "index.md",
-    headerId: "none",
+    headingId: "none",
 };
 
 // See Path.ESCAPED_CHARACTERS.
