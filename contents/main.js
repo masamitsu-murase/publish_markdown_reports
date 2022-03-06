@@ -39,7 +39,9 @@
                     configData.headingId = data.headerId;
                 }
                 ["headingId", "index"].forEach(key => {
-                    configData[key] = data[key];
+                    if (data.hasOwnProperty(key)) {
+                        configData[key] = data[key];
+                    }
                 });
                 this._configData = configData;
             } catch (e) {
