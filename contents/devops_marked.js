@@ -150,11 +150,11 @@ var DevOpsMarked = (function () {
     marked.Slugger.prototype.slug = mySlug;
 
     var InternalLinkRenderer = class extends marked.Renderer {
-        constructor(currentFilePath, headerId) {
+        constructor(currentFilePath, headingId) {
             super();
             this.currentFilePath = currentFilePath;
             this.imageIds = [];
-            this.headerId = (headerId || "").toLowerCase();
+            this.headingId = (headingId || "").toLowerCase();
         }
 
         isExternalLink(url) {
@@ -208,7 +208,7 @@ var DevOpsMarked = (function () {
         }
 
         heading(text, level, raw, slugger) {
-            switch(this.headerId) {
+            switch(this.headingId) {
                 case "pythonmarkdown":
                     return this.headingPythonMarkdown(text, level, raw, slugger);
                 case "doxybook2":
@@ -248,8 +248,8 @@ var DevOpsMarked = (function () {
         }
     };
 
-    var createMarkdownReport = function (text, currentFilePath, headerId) {
-        const renderer = new InternalLinkRenderer(currentFilePath, headerId);
+    var createMarkdownReport = function (text, currentFilePath, headingId) {
+        const renderer = new InternalLinkRenderer(currentFilePath, headingId);
         const options = {
             baseUrl: `?${PATH_PARAM_NAME}=/`,
             breaks: true,

@@ -28,7 +28,24 @@
 
         async loadConfigData() {
             const configDataBlob = await this.loadContentBlob(CONFIG_FILE_NAME, "text/plain");
-            this._configData = (configDataBlob ? JSON.parse(await configDataBlob.text()) : null);
+            try {
+                const data = (configDataBlob ? JSON.parse(await configDataBlob.text()) : null);
+                if (!data) {
+                    this._configData = {};
+                    return;
+                }
+                let configData = {};
+                if (data.hasOwnProperty("headerId")) {
+                    configData.headingId = data.headerId;
+                }
+                ["headingId", "index"].forEach(key => {
+                    configData[key] = data[key];
+                });
+                this._configData = configData;
+            } catch (e) {
+                this._configData = {};
+                console.error("Invalid config file", e.message);
+            }
         }
 
         configData() {

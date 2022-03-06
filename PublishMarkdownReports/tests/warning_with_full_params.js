@@ -8,7 +8,7 @@ const contentPath = path.resolve(__dirname, 'contents');
 tmr.setInput('contentPath', contentPath);
 const indexFile = 'Dir1/main.md';
 tmr.setInput('indexFile', indexFile);
-const headingId = 'pythonmarkdown';
-tmr.setInput('headingId', headingId);
+const headerId = 'doxybook2';
+tmr.setInput('headerId', headerId);
 
 tmr.run();

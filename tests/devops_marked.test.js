@@ -92,15 +92,15 @@ describe('Markdown', () => {
             { href: 'md/images/screenshot2.png', id: 'publishmarkdownreports_image_1' },
             { href: 'md/images/screenshot3.png', id: 'publishmarkdownreports_image_2' },
         ];
-        const headerIds = [
+        const headingIds = [
             "none",
             "pythonmarkdown",
             "doxybook2",
         ];
-        headerIds.forEach(headerId => {
-            const [htmlText, imageIds] = DevOpsMarked.createMarkdownReport(markdownText, currentFilepath, headerId)
+        headingIds.forEach(headingId => {
+            const [htmlText, imageIds] = DevOpsMarked.createMarkdownReport(markdownText, currentFilepath, headingId)
             expect(imageIds).toEqual(expectedImageIds);
-            const expectedHtmlText = fs.readFileSync(path.resolve(__dirname, "contents", `index_${headerId}.html`)).toString();
+            const expectedHtmlText = fs.readFileSync(path.resolve(__dirname, "contents", `index_${headingId}.html`)).toString();
             expect(htmlText).toEqual(expectedHtmlText);
         });
     });
