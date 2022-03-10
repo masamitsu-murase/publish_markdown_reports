@@ -99,16 +99,17 @@ jobs:
 
     - name: Upload all artifacts
       uses: actions/github-script@v3
+      env:
+        RELEASE_ID: ${{ steps.create_release.outputs.id }}
+        ASSETS_DIR: vsix
       with:
-        release_id: ${{ steps.create_release.outputs.id }}
-        assets_dir: vsix
         script: |
           console.log("environment", process.versions);
           const fs = require("fs").promises;
           const path = require("path");
           const { repo: { owner, repo } } = context;
-          const release_id = core.getInput("release_id", { required: true });
-          const assets_dir = core.getInput("assets_dir", { required: true });
+          const release_id = process.env["RELEASE_ID"];
+          const assets_dir = process.env["ASSETS_DIR"];
 
           const files = await fs.readdir(assets_dir);
           console.log("files", files);
@@ -122,5 +123,5 @@ jobs:
                 data
               });
             });
-          })
-          Promise.all(asset_uploaders);
+          });
+          await Promise.all(asset_uploaders);
