@@ -69,12 +69,12 @@ test('with warned params', () => {
 });
 
 test('with invalid params', () => {
-    const failure_cases = [
+    const failureCases = [
         'failure_with_invalid_content_path.js',
         'failure_with_invalid_index_file.js',
     ];
 
-    failure_cases.forEach(filename => {
+    failureCases.forEach(filename => {
         let tp = path.join(__dirname, filename);
         let tr = new ttm.MockTestRunner(tp);
         tr.run();
