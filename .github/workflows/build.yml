@@ -98,7 +98,7 @@ jobs:
     - run: ls -alF vsix
 
     - name: Upload all artifacts
-      uses: actions/github-script@v3
+      uses: actions/github-script@v6
       env:
         RELEASE_ID: ${{ steps.create_release.outputs.id }}
         ASSETS_DIR: vsix
