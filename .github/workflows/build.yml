@@ -115,7 +115,7 @@ jobs:
           console.log("files", files);
           const asset_uploaders = files.map(file => path.join(assets_dir, file)).map(file => {
             return fs.readFile(file).then(data => {
-              return github.repos.uploadReleaseAsset({
+              return github.rest.repos.uploadReleaseAsset({
                 owner,
                 repo,
                 release_id,
