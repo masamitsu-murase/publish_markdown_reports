@@ -31,12 +31,12 @@
             "helpMarkDown": "Path to the index file."
         },
         {
-            "name": "headerId",
+            "name": "headingId",
             "type": "string",
-            "label": "headerId",
+            "label": "headingId",
             "defaultValue": "none",
             "required": false,
-            "helpMarkDown": "Header ID style. 'none', 'pythonmarkdown', or 'doxybook2'."
+            "helpMarkDown": "Heading ID style. 'none', 'pythonmarkdown', or 'doxybook2'."
         }
     ],
     "execution": {
