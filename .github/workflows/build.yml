@@ -2,7 +2,7 @@ name: build
 
 on:
   push:
-    branches: [ main, develop, support_github_actions ]
+    branches: ['*']
     tags: ['v*']
   pull_request:
     branches: [ main, develop ]
