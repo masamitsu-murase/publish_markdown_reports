@@ -34,6 +34,8 @@ Add the following YAML definition in your pipeline.
 * `indexFile` is optional. `index.md` is used as default.
 * `headingId` is optional. `none`, `pythonmarkdown`, or `doxybook2`.
 
+Please note that all files within the `contentPath` are stored in Azure DevOps storage. Therefore, ensure that only the necessary files are present in the directory specified by `contentPath` to minimize storage usage.
+
 ## 3rd party libraries
 
 This extension uses the following 3rd party libraries.
