@@ -48,6 +48,8 @@ This extension uses the following 3rd party libraries.
   Mario Heiderich. (Apache License)
 * [new.css](https://newcss.net/)  
   Example. (MIT License)
+* [KaTeX](https://katex.org/)  
+  Khan Academy and other contributors. (MIT License)
 
 ## License
 
