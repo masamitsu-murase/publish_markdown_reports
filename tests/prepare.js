@@ -10,6 +10,7 @@ async function readFile(filename) {
 async function main() {
     const files = [
         ["contents/highlight.min.js", "hljs"],
+        ["contents/katex.min.js", "katex"],
         ["node_modules/marked/marked.min.js", "marked"],
         ["node_modules/dompurify/dist/purify.min.js", "DOMPurify"],
     ];

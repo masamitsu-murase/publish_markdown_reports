@@ -107,6 +107,306 @@
             "path": "node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js",
             "addressable": true,
             "packagePath": "contents/lib/VSS.SDK.min.js"
+        },
+        {
+            "path": "contents/fonts/KaTeX_AMS-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_AMS-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_AMS-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Bold.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Bold.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Bold.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Caligraphic-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Bold.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Bold.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Bold.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Fraktur-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Bold.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Bold.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Bold.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-BoldItalic.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-BoldItalic.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-BoldItalic.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Italic.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Italic.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Italic.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Main-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-BoldItalic.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-BoldItalic.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-BoldItalic.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-Italic.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-Italic.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Math-Italic.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Bold.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Bold.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Bold.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Italic.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Italic.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Italic.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_SansSerif-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Script-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Script-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Script-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size1-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size1-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size1-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size2-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size2-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size2-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size3-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size3-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size3-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size4-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size4-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Size4-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Typewriter-Regular.ttf",
+            "addressable": true,
+            "contentType": "font/ttf"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Typewriter-Regular.woff",
+            "addressable": true,
+            "contentType": "font/woff"
+        },
+        {
+            "path": "contents/fonts/KaTeX_Typewriter-Regular.woff2",
+            "addressable": true,
+            "contentType": "font/woff2"
         }
     ]
 }
