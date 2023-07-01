@@ -248,6 +248,133 @@ var DevOpsMarked = (function () {
         }
     };
 
+    var KatexInlineExtension = class {
+        constructor() {
+            this.options = {
+                throwOnError: false,
+            };
+        }
+
+        get name() {
+            return "KatexInline";
+        }
+
+        get level() {
+            return "inline";
+        }
+
+        start(src) {
+            // See https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+            const pattern = /((^\$)|([^\\$](\\\\)*\$))([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return -1;
+            }
+
+            const index = matchedData.index;
+            const matchedStr = matchedData[0];
+            return index + matchedStr.indexOf("$");
+        }
+
+        tokenizer(src, tokens) {
+            const pattern = /^\$([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return;
+            }
+            const matchedStr = matchedData[0];
+            return {
+                type: "KatexInline",
+                raw: matchedStr,
+                text: matchedStr.slice(1, -1),
+            }
+        }
+
+        renderer(token) {
+            const options = Object.assign({ displayMode: false }, this.options);
+            return katex.renderToString(token.text, options);
+        }
+    };
+
+    var KatexBlockExtension = class {
+        constructor() {
+            this.options = {
+                throwOnError: false,
+            };
+        }
+
+        get name() {
+            return "KatexBlock";
+        }
+
+        get level() {
+            return "block";
+        }
+
+        start(src) {
+            const pattern2dollars = /((^\$\$)|([^\\$](\\\\)*\$\$))([^$]|(?<!\$)\$|(?<!\\)(\\\\)*\\\$\$)+?(?<!\\)(\\\\)*\$\$((?!\$)|$)/;
+            const patternDollar = /((^\$)|([^\\$](\\\\)*\$))([^$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData2dollars = src.match(pattern2dollars);
+            const matchedDataDollar = src.match(patternDollar);
+            let matchedDataDollarValid = false;
+            if (matchedDataDollar) {
+                const matchedStr = matchedDataDollar[0];
+                const text = matchedStr.slice(matchedStr.indexOf("$"), matchedStr.lastIndexOf("$") + 1);
+                if (text.indexOf("\n") >= 0 && text.indexOf("\n\n") < 0) {
+                    matchedDataDollarValid = true;
+                }
+            }
+
+            if (matchedData2dollars && matchedDataDollarValid) {
+                return Math.min(
+                    matchedDataDollar.index + matchedDataDollar[0].indexOf("$"),
+                    matchedData2dollars.index + matchedData2dollars[0].indexOf("$")
+                );
+            } else if (matchedData2dollars) {
+                return matchedData2dollars.index + matchedData2dollars[0].indexOf("$");
+            } else if (matchedDataDollarValid) {
+                return matchedDataDollar.index + matchedDataDollar[0].indexOf("$");
+            } else {
+                return -1;
+            }
+        }
+
+        tokenizer(src, tokens) {
+            const pattern2dollars = /^\$\$([^$]|(?<!\$)\$|(?<!\\)(\\\\)*\\\$\$)+?(?<!\\)(\\\\)*\$\$((?!\$)|$)/;
+            const patternDollar = /^\$([^$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData2dollars = src.match(pattern2dollars);
+            const matchedDataDollar = src.match(patternDollar);
+            let matchedDataDollarValid = false;
+            if (matchedDataDollar) {
+                const text = matchedDataDollar[0];
+                if (text.indexOf("\n") >= 0 && text.indexOf("\n\n") < 0) {
+                    matchedDataDollarValid = true;
+                }
+            }
+
+            if (matchedData2dollars) {
+                return {
+                    type: "KatexBlock",
+                    raw: matchedData2dollars[0],
+                    text: matchedData2dollars[0].slice(2, -2),
+                };
+            } else if (matchedDataDollarValid) {
+                return {
+                    type: "KatexBlock",
+                    raw: matchedDataDollar[0],
+                    text: matchedDataDollar[0].slice(1, -1),
+                };
+            } else {
+                return;
+            }
+        }
+
+        renderer(token) {
+            const options = Object.assign({ displayMode: true }, this.options);
+            return katex.renderToString(token.text, options);
+        }
+    };
+
     var createMarkdownReport = function (text, currentFilePath, headingId) {
         const renderer = new InternalLinkRenderer(currentFilePath, headingId);
         const options = {
@@ -259,7 +386,8 @@ var DevOpsMarked = (function () {
                 return hljs.highlight(code, { language }).value;
             },
             langPrefix: "hljs language-",
-            renderer: renderer
+            renderer: renderer,
+            extensions: [new KatexInlineExtension(), new KatexBlockExtension()],
         };
 
         const html = marked.parse(text, options);
