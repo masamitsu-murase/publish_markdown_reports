@@ -143,7 +143,7 @@
             }
 
             const text = await attachmentBlob.text();
-            const [html, imageIds] = DevOpsMarked.createMarkdownReport(text, path, configData.headingId);
+            const [html, imageIds] = DevOpsMarked.createMarkdownReport(text, path, configData.headingId, configData.latexFormula);
             const sanitizedHtml = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
             outputElement.innerHTML = sanitizedHtml;
 

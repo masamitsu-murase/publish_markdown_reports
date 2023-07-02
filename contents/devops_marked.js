@@ -418,7 +418,11 @@ var DevOpsMarked = (function () {
             renderer: renderer,
         };
 
-        KatexEnabledFlag = katexEnabled;
+        if (katexEnabled === true) {
+            KatexEnabledFlag = true;
+        } else {
+            KatexEnabledFlag = false;
+        }
 
         const html = marked.parse(text, options);
 
