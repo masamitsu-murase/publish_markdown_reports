@@ -55,3 +55,38 @@ Call `sample` with `arg`.
   *  [Internal link 2](#index-インデックス-1_1)
 * [Link ../sample.md](../sample.md)
 * [Link /dir2/sample.md](/dir2/sample.md)
+
+## KaTeX
+
+* This should be drawn as latex: $a=\sin\theta \times \frac{1}{2} < \Pi$.
+* These should not: $a=\sin\theta \times \frac{1}{2} $, $ a=\sin\theta \times \frac{1}{2}$, $300, $400.
+* Sample with code: `$\infty`, $\infty`$.
+
+The followings should be drawn as latex:  
+$$
+\textcolor{blue}{sum} = \left(\sum_{k=0}^{100} a_k\right)\\
+\$100 \\
+
+\left(\prod_{k=0}^{100} a_k\right)
+$$
+$
+\textcolor{blue}{sum} = \left(\sum_{k=0}^{100} a_k\right)\\
+\$100 \\
+\left(\prod_{k=0}^{100} a_k\right)
+$
+
+The followings should not:  
+$
+\textcolor{blue}{sum} = \left(\sum_{k=0}^{100} a_k\right)\\
+\$100 \\
+
+\left(\prod_{k=0}^{100} a_k\right)
+$
+
+```
+$
+\textcolor{blue}{sum} = \left(\sum_{k=0}^{100} a_k\right)\\
+\$100 \\
+\left(\prod_{k=0}^{100} a_k\right)
+$
+```

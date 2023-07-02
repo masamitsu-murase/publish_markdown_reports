@@ -111,10 +111,13 @@ async function run() {
             indexFilePath = replaceAll(indexFilePath, path.sep, "/");
         }
 
+        const latexFormula = tl.getBoolInput("latexFormula");
+
         const headingId = getHeadingIdInput();
         const configData = {
             "index": indexFilePath,
-            "headingId": headingId
+            "headingId": headingId,
+            "latexFormula": latexFormula,
         };
         saveConfigData(configData);
 

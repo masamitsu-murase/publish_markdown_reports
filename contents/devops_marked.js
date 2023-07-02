@@ -248,7 +248,163 @@ var DevOpsMarked = (function () {
         }
     };
 
-    var createMarkdownReport = function (text, currentFilePath, headingId) {
+    var KatexEnabledFlag = true;
+    const KatexDefaultOptions = {
+        throwOnError: false,
+        output: "htmlAndMathml",
+    }
+
+    var KatexInlineExtension = {
+        name: "KatexInline",
+        level:  "inline",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // See https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+            // Match: $abc = def$
+            // Don't match: $abc = def $, $ abc = def$
+            const pattern = /((^\$)|([^\\$](\\\\)*\$))(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return -1;
+            }
+
+            const index = matchedData.index;
+            const matchedStr = matchedData[0];
+            return index + matchedStr.indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            const pattern = /^\$(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return;
+            }
+            const matchedStr = matchedData[0];
+            return {
+                type: "KatexInline",
+                raw: matchedStr,
+                text: matchedStr.slice(1, -1),
+            }
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: false,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var KatexBlock2DollarExtension = {
+        name: "KatexBlock2Dollar",
+        level: "block",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // Match: $$abc = def$$
+            //        $$
+            //        \begin{array}{rcl}
+            //        a &=& \int_0^\infty x dx\\
+            //          &=& \int_0^\infty y dy
+            //        \end{array}
+            //        $$
+            // Don't match: $$abc = def $$, $$ abc = def$$
+            const pattern = /((^\$\$)|([^\\$](\\\\)*\$\$))(?!\t| )([^$]|(?<!\$)\$|(?<!\\)(\\\\)*\\\$\$)+?(?<!\\)(\\\\)*(?<!\t| )\$\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return -1;
+            }
+            return matchedData.index + matchedData[0].indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            const pattern = /^\$\$(?!\t| )([^$]|(?<!\$)\$|(?<!\\)(\\\\)*\\\$\$)+?(?<!\\)(\\\\)*(?<!\t| )\$\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return;
+            }
+
+            return {
+                type: "KatexBlock2Dollar",
+                raw: matchedData[0],
+                text: matchedData[0].slice(2, -2),
+            };
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: true,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var KatexBlock1DollarExtension = {
+        name: "KatexBlock1Dollar",
+        level: "block",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // Match: $
+            //        \begin{array}{rcl}
+            //        a &=& \int_0^\infty x dx\\
+            //          &=& \int_0^\infty y dy
+            //        \end{array}
+            //        $
+            // Don't match:
+            //        $
+            //        \begin{array}{rcl}
+            //        a &=& \int_0^\infty x dx\\
+            //          &=& \int_0^\infty y dy
+            //        \end{array}
+            //
+            //        $
+            const pattern = /((^\$)|([^\\$](\\\\)*\$))(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)*\n([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return -1;
+            }
+
+            return matchedData.index + matchedData[0].indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            const pattern = /^\$(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)*\n([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return;
+            }
+
+            return {
+                type: "KatexBlock1Dollar",
+                raw: matchedData[0],
+                text: matchedData[0].slice(1, -1),
+            };
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: true,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var createMarkdownReport = function (text, currentFilePath, headingId, katexEnabled) {
         const renderer = new InternalLinkRenderer(currentFilePath, headingId);
         const options = {
             baseUrl: `?${PATH_PARAM_NAME}=/`,
@@ -259,13 +415,27 @@ var DevOpsMarked = (function () {
                 return hljs.highlight(code, { language }).value;
             },
             langPrefix: "hljs language-",
-            renderer: renderer
+            renderer: renderer,
         };
+
+        if (katexEnabled === true) {
+            KatexEnabledFlag = true;
+        } else {
+            KatexEnabledFlag = false;
+        }
 
         const html = marked.parse(text, options);
 
         return [html, renderer.imageIds];
     };
+
+    marked.use({
+        extensions: [
+            KatexInlineExtension,
+            KatexBlock2DollarExtension,
+            KatexBlock1DollarExtension,
+        ],
+    });
 
     return {
         Path: Path,

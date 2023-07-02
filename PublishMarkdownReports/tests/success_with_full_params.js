@@ -10,5 +10,7 @@ const indexFile = 'Dir1/main.md';
 tmr.setInput('indexFile', indexFile);
 const headingId = 'pythonmarkdown';
 tmr.setInput('headingId', headingId);
+const latexFormula = false;
+tmr.setInput('latexFormula', latexFormula);
 
 tmr.run();

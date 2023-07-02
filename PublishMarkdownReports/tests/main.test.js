@@ -49,6 +49,7 @@ test('with full params', () => {
     const expectedJsonData = Object.assign({}, utils.DEFAULT_CONFIG_DATA, {
         index: "Dir1/main.md",
         headingId: "pythonmarkdown",
+        latexFormula: false,
     });
     assert.deepStrictEqual(configJsonData, expectedJsonData);
 });

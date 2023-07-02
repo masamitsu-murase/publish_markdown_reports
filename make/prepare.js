@@ -11,6 +11,7 @@ async function prepareCssFiles() {
     const cssFiles = [
         "contents/highlight.min.css",
         "contents/highlight.dark.min.css",
+        "contents/katex.min.css",
         "node_modules/@exampledev/new.css/new.css",
         "contents/frame.css",
     ];
@@ -26,6 +27,7 @@ async function prepareCssFiles() {
 async function prepareJsFiles() {
     const jsFiles = [
         "contents/highlight.min.js",
+        "contents/katex.min.js",
         "node_modules/marked/marked.min.js",
         "node_modules/dompurify/dist/purify.min.js",
         "contents/devops_marked.js",

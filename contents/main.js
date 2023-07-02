@@ -38,7 +38,7 @@
                 if (data.hasOwnProperty("headerId")) {
                     configData.headingId = data.headerId;
                 }
-                ["headingId", "index"].forEach(key => {
+                ["headingId", "index", "latexFormula"].forEach(key => {
                     if (data.hasOwnProperty(key)) {
                         configData[key] = data[key];
                     }
