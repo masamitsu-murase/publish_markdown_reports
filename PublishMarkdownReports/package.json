@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "pretest": "tsc",
-    "test": "cross-env INPUT_INDEXFILE=index.md INPUT_HEADINGID=none jest"
+    "test": "cross-env INPUT_INDEXFILE=index.md INPUT_HEADINGID=none INPUT_LATEXFORMULA=true jest"
   },
   "keywords": [],
   "author": "",

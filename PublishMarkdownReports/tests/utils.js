@@ -3,6 +3,7 @@ const CONFIG_FILENAME = 'config.json';
 const DEFAULT_CONFIG_DATA = {
     index: "index.md",
     headingId: "none",
+    latexFormula: true,
 };
 
 // See Path.ESCAPED_CHARACTERS.

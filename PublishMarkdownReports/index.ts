@@ -111,11 +111,7 @@ async function run() {
             indexFilePath = replaceAll(indexFilePath, path.sep, "/");
         }
 
-        const latexFormula = tl.getInput("latexFormula");
-        if (latexFormula === undefined) {
-            tl.setResult(tl.TaskResult.Failed, 'Bad latexFormula.');
-            return;
-        }
+        const latexFormula = tl.getBoolInput("latexFormula");
 
         const headingId = getHeadingIdInput();
         const configData = {
