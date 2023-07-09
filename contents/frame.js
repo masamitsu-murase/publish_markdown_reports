@@ -144,7 +144,7 @@
 
             const text = await attachmentBlob.text();
             const [html, imageIds] = DevOpsMarked.createMarkdownReport(text, path, configData.headingId, configData.latexFormula);
-            const sanitizedHtml = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+            const sanitizedHtml = DOMPurify.sanitize(html);
             outputElement.innerHTML = sanitizedHtml;
 
             const promises = imageIds.map(imageId => loadImageAsync(imageId, loader));
