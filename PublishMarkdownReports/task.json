@@ -37,6 +37,14 @@
             "defaultValue": "none",
             "required": false,
             "helpMarkDown": "Heading ID style. 'none', 'pythonmarkdown', or 'doxybook2'."
+        },
+        {
+            "name": "latexFormula",
+            "type": "boolean",
+            "label": "latexFormula",
+            "defaultValue": true,
+            "required": false,
+            "helpMarkDown": "Enable LaTeX-styled formula."
         }
     ],
     "execution": {

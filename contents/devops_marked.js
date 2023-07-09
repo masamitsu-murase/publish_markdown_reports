@@ -248,7 +248,216 @@ var DevOpsMarked = (function () {
         }
     };
 
-    var createMarkdownReport = function (text, currentFilePath, headingId) {
+    var KatexEnabledFlag = true;
+    const KatexDefaultOptions = {
+        throwOnError: false,
+        output: "htmlAndMathml",
+    }
+
+    var KatexInlineExtension1DollarSingleLine = {
+        name: "KatexInline1DollarSingleLine",
+        level:  "inline",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // See https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+            // Match: $abc = def$
+            // Don't match: $abc = def $, $ abc = def$, $abc$3
+            const pattern = /((^\$)|([^\\$](\\\\)*\$))(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$|[a-zA-Z0-9])|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return -1;
+            }
+
+            const index = matchedData.index;
+            const matchedStr = matchedData[0];
+            return index + matchedStr.indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            if (!KatexEnabledFlag) {
+                return;
+            }
+
+            const pattern = /^\$(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$|[a-zA-Z0-9])|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return;
+            }
+            const matchedStr = matchedData[0];
+            return {
+                type: "KatexInline1DollarSingleLine",
+                raw: matchedStr,
+                text: matchedStr.slice(1, -1),
+            }
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: false,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var KatexInlineExtension1DollarMultipleLines = {
+        name: "KatexInline1DollarMultipleLines",
+        level:  "inline",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // See https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+            // Match: $abc = \ndef$
+            // Don't match: $abc = \n\ndef$
+            const pattern = /((^\$)|([^\\$](\\\\)*\$))(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)*\n([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$|[a-zA-Z0-9])|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return -1;
+            }
+
+            const index = matchedData.index;
+            const matchedStr = matchedData[0];
+            return index + matchedStr.indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            if (!KatexEnabledFlag) {
+                return;
+            }
+
+            const pattern = /^\$(?!\t| )([^\n$]|(?<!\\)(\\\\)*\\\$)*\n([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*(?<!\t| )\$((?!\$|[a-zA-Z0-9])|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return;
+            }
+
+            const matchedStr = matchedData[0];
+            return {
+                type: "KatexInline1DollarMultipleLines",
+                raw: matchedStr,
+                text: matchedStr.slice(1, -1),
+            }
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: true,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var KatexInlineExtension2DollarsMultipleLines = {
+        name: "KatexInline2DollarsMultipleLines",
+        level:  "inline",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // See https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_expressions/Assertions
+            // Note that $ without '\' prefix is not allowed in LaTeX.
+            // Match: $$abc = \ndef$$
+            // Don't match: $$abc = \n\ndef$$
+            const pattern = /((^\$\$)|([^\\$](\\\\)*\$\$))([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return -1;
+            }
+
+            const index = matchedData.index;
+            const matchedStr = matchedData[0];
+            return index + matchedStr.indexOf("$");
+        },
+
+        tokenizer(src, tokens) {
+            if (!KatexEnabledFlag) {
+                return;
+            }
+
+            const pattern = /^\$\$([^\n$]|(?<!\n)\n|(?<!\\)(\\\\)*\\\$)+?(?<!\\)(\\\\)*\$\$((?!\$)|$)/;
+            const matchedData = src.match(pattern);
+            if (!matchedData) {
+                return;
+            }
+
+            const matchedStr = matchedData[0];
+            return {
+                type: "KatexInline2DollarsMultipleLines",
+                raw: matchedStr,
+                text: matchedStr.slice(2, -2),
+            }
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: true,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var KatexBlock2DollarsExtension = {
+        name: "KatexBlock2Dollars",
+        level: "block",
+
+        start(src) {
+            if (!KatexEnabledFlag) {
+                return -1;
+            }
+
+            // Match: $$abc = def$$
+            //        $$
+            //        \begin{array}{rcl}
+            //        a &=& \int_0^\infty x dx\\
+            //          &=& \int_0^\infty y dy
+            //        \end{array}
+            //        $$
+            const pattern = /(^|(?<=\n))(\t| )*\$\$\n[^]*?\n(\t| )*\$\$((?=\n)|$)/
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return -1;
+            }
+            return matchedData.index;
+        },
+
+        tokenizer(src, tokens) {
+            if (!KatexEnabledFlag) {
+                return;
+            }
+
+            const pattern = /^(\t| )*\$\$\n[^]*?\n(\t| )*\$\$((?=\n)|$)/
+            const matchedData = src.match(pattern);
+
+            if (!matchedData) {
+                return;
+            }
+
+            const raw = matchedData[0];
+            return {
+                type: "KatexBlock2Dollars",
+                raw: raw,
+                text: raw.trim().slice(2, -2),
+            };
+        },
+
+        renderer(token) {
+            const options = Object.assign({}, KatexDefaultOptions, {
+                displayMode: true,
+            });
+            return katex.renderToString(token.text, options);
+        },
+    };
+
+    var createMarkdownReport = function (text, currentFilePath, headingId, katexEnabled) {
         const renderer = new InternalLinkRenderer(currentFilePath, headingId);
         const options = {
             baseUrl: `?${PATH_PARAM_NAME}=/`,
@@ -259,13 +468,28 @@ var DevOpsMarked = (function () {
                 return hljs.highlight(code, { language }).value;
             },
             langPrefix: "hljs language-",
-            renderer: renderer
+            renderer: renderer,
         };
+
+        if (katexEnabled === true) {
+            KatexEnabledFlag = true;
+        } else {
+            KatexEnabledFlag = false;
+        }
 
         const html = marked.parse(text, options);
 
         return [html, renderer.imageIds];
     };
+
+    marked.use({
+        extensions: [
+            KatexInlineExtension1DollarSingleLine,
+            KatexInlineExtension1DollarMultipleLines,
+            KatexInlineExtension2DollarsMultipleLines,
+            KatexBlock2DollarsExtension,
+        ],
+    });
 
     return {
         Path: Path,

@@ -97,10 +97,22 @@ describe('Markdown', () => {
             "pythonmarkdown",
             "doxybook2",
         ];
+
+        const spy = jest.spyOn(global.console, 'warn');
+        spy.mockImplementation(() => undefined);
+
+        const headingId = "none";
+        const [htmlText, imageIds] = DevOpsMarked.createMarkdownReport(markdownText, currentFilepath, headingId, false);
+        // fs.writeFileSync(path.resolve(__dirname, "contents", `index_${headingId}_nokatex.html`), htmlText);
+        expect(imageIds).toEqual(expectedImageIds);
+        const expectedHtmlText = fs.readFileSync(path.resolve(__dirname, "contents", `index_${headingId}_nokatex.html`)).toString();
+        expect(htmlText).toEqual(expectedHtmlText);
+
         headingIds.forEach(headingId => {
-            const [htmlText, imageIds] = DevOpsMarked.createMarkdownReport(markdownText, currentFilepath, headingId)
+            const [htmlText, imageIds] = DevOpsMarked.createMarkdownReport(markdownText, currentFilepath, headingId, true);
+            // fs.writeFileSync(path.resolve(__dirname, "contents", `index_${headingId}_katex.html`), htmlText);
             expect(imageIds).toEqual(expectedImageIds);
-            const expectedHtmlText = fs.readFileSync(path.resolve(__dirname, "contents", `index_${headingId}.html`)).toString();
+            const expectedHtmlText = fs.readFileSync(path.resolve(__dirname, "contents", `index_${headingId}_katex.html`)).toString();
             expect(htmlText).toEqual(expectedHtmlText);
         });
     });
