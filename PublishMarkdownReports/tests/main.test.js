@@ -5,6 +5,8 @@ const assert = require('assert');
 
 const utils = require('./utils');
 
+const timeout = 30 * 1000;
+
 function loadConfigJsonData(logOutput) {
     const configLogMessage = `##vso[task.addattachment type=${utils.ATTACHMENT_TYPE};name=${utils.CONFIG_FILENAME};]`
     const configLogIndex = logOutput.indexOf(configLogMessage);
@@ -28,20 +30,20 @@ function checkContentFiles(tr, warningCount=0, errorCount=0) {
     assert.equal(tr.stdout.match(/task\.addattachment/g).length, utils.CONTENT_FILES.length + 1, 'All attachments should be found.');
 }
 
-test('with contentPath', () => {
+test('with contentPath', async () => {
     let tp = path.join(__dirname, 'success_with_content_path.js');
     let tr = new ttm.MockTestRunner(tp);
-    tr.run();
+    await tr.runAsync();
 
     checkContentFiles(tr);
     const configJsonData = loadConfigJsonData(tr.stdout);
     assert.deepStrictEqual(configJsonData, utils.DEFAULT_CONFIG_DATA);
-});
+}, timeout);
 
-test('with full params', () => {
+test('with full params', async () => {
     let tp = path.join(__dirname, 'success_with_full_params.js');
     let tr = new ttm.MockTestRunner(tp);
-    tr.run();
+    await tr.runAsync();
 
     checkContentFiles(tr);
 
@@ -52,12 +54,12 @@ test('with full params', () => {
         latexFormula: false,
     });
     assert.deepStrictEqual(configJsonData, expectedJsonData);
-});
+}, timeout);
 
-test('with warned params', () => {
+test('with warned params', async () => {
     let tp = path.join(__dirname, 'warning_with_full_params.js');
     let tr = new ttm.MockTestRunner(tp);
-    tr.run();
+    await tr.runAsync();
 
     checkContentFiles(tr, 1);
 
@@ -67,18 +69,18 @@ test('with warned params', () => {
         headingId: "doxybook2",
     });
     assert.deepStrictEqual(configJsonData, expectedJsonData);
-});
+}, timeout);
 
-test('with invalid params', () => {
+test('with invalid params', async () => {
     const failureCases = [
         'failure_with_invalid_content_path.js',
         'failure_with_invalid_index_file.js',
     ];
 
-    failureCases.forEach(filename => {
+    for (const filename of failureCases) {
         let tp = path.join(__dirname, filename);
         let tr = new ttm.MockTestRunner(tp);
-        tr.run();
+        await tr.runAsync();
         assert.ok(!tr.succeeded, `should fail: ${filename}`);
-    });
-});
+    }
+}, timeout);
